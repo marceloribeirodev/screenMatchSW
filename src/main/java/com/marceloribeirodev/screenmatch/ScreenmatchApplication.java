@@ -1,5 +1,6 @@
 package com.marceloribeirodev.screenmatch;
 
+import com.marceloribeirodev.screenmatch.model.DadosEpisodios;
 import com.marceloribeirodev.screenmatch.model.DadosSerie;
 import com.marceloribeirodev.screenmatch.service.ConsumoApi;
 import com.marceloribeirodev.screenmatch.service.ConverteDados;
@@ -24,5 +25,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		ConverteDados converteDados = new ConverteDados();
 		DadosSerie dados = converteDados.obterDados(json, DadosSerie.class);
 		System.out.println(dados);
+		json = consumoApi.obterDados("https://www.omdbapi.com/?t=gilmore+girls&season=1&episode=2&apikey=6585022c");
+		DadosEpisodios dadosEpisodios = converteDados.obterDados(json, DadosEpisodios.class);
+		System.out.println(dadosEpisodios);
 	}
 }

@@ -2,7 +2,7 @@ package com.marceloribeirodev.screenmatch.model;
 
 public enum Categoria {
 
-    AÇÃO("Action"),
+    ACAO("Action"),
     ROMANCE("Romance"),
     COMEDIA("Comedy"),
     DRAMA("Drama"),

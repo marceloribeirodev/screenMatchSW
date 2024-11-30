@@ -3,14 +3,11 @@ package com.marceloribeirodev.screenmatch.principal;
 import com.marceloribeirodev.screenmatch.model.DadosSerie;
 import com.marceloribeirodev.screenmatch.model.DadosTemporada;
 import com.marceloribeirodev.screenmatch.model.Episodio;
+import com.marceloribeirodev.screenmatch.model.Serie;
 import com.marceloribeirodev.screenmatch.service.ConsumoApi;
 import com.marceloribeirodev.screenmatch.service.ConverteDados;
 
-import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NewPrincipal {
@@ -72,7 +69,7 @@ public class NewPrincipal {
         return dados;
     }
 
-    private void buscarEpisodioPorSerie(){
+    private void buscarEpisodioPorSerie() {
         DadosSerie dadosSerie = getDadosSerie();
         List<DadosTemporada> temporadas = new ArrayList<>();
 
@@ -84,8 +81,14 @@ public class NewPrincipal {
         temporadas.forEach(System.out::println);
     }
 
-    private void listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+    private void listarSeriesBuscadas() {
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                .map(d -> new Serie(d))
+                .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 
 }

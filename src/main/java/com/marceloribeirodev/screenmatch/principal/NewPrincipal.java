@@ -4,6 +4,7 @@ import com.marceloribeirodev.screenmatch.model.DadosSerie;
 import com.marceloribeirodev.screenmatch.model.DadosTemporada;
 import com.marceloribeirodev.screenmatch.model.Episodio;
 import com.marceloribeirodev.screenmatch.model.Serie;
+import com.marceloribeirodev.screenmatch.repository.SerieRepository;
 import com.marceloribeirodev.screenmatch.service.ConsumoApi;
 import com.marceloribeirodev.screenmatch.service.ConverteDados;
 
@@ -19,6 +20,11 @@ public class NewPrincipal {
     private final String API_KEY = "&apikey=6585022c";
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository serieRepository;
+    public NewPrincipal(SerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
+    }
 
     public void exibeMenu() {
 
@@ -57,7 +63,9 @@ public class NewPrincipal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //dadosSeries.add(dados);
+        serieRepository.save(serie);
         System.out.println(dados);
     }
 

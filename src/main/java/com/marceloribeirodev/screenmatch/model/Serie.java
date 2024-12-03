@@ -24,7 +24,7 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
-
+    @Transient
     private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie){

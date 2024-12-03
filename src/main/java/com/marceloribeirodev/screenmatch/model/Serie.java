@@ -3,6 +3,8 @@ package com.marceloribeirodev.screenmatch.model;
 import com.marceloribeirodev.screenmatch.service.traducao.ConsultaMyMemory;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -22,6 +24,8 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
+
+    private List<Episodio> episodios = new ArrayList<>();
 
     public Serie(DadosSerie dadosSerie){
         this.titulo = dadosSerie.titulo();

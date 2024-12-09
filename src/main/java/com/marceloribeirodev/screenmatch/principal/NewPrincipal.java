@@ -37,6 +37,7 @@ public class NewPrincipal {
                     2 - Buscar episódios
                     3 - Listar seríe buscadas
                     4 - Buscar série por título
+                    5 - Buscar séries por ator
                     0 - Sair                                 
                     """;
 
@@ -56,6 +57,9 @@ public class NewPrincipal {
                     break;
                 case 4:
                     buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriesPorAtor();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -126,11 +130,22 @@ public class NewPrincipal {
 
         Optional<Serie> serieBuscada = serieRepository.findByTituloContainingIgnoreCase(nomeSerie);
 
-        if (serieBuscada.isPresent()){
+        if (serieBuscada.isPresent()) {
             System.out.println("Dados da serie: " + serieBuscada.get());
-        }else{
+        } else {
             System.out.println("Serie não encontrada!");
         }
     }
+
+    private void buscarSeriesPorAtor() {
+        System.out.println("Digite o nome do ator: ");
+        String nomeAtor = leitura.nextLine();
+        System.out.println("Avaliação apartir de qual valor: ");
+        Double valorAvaliacao = leitura.nextDouble();
+        List<Serie> seriesEncontradas = serieRepository.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAtor, valorAvaliacao);
+        System.out.println("Series em que " + nomeAtor + " trabalhou!");
+        seriesEncontradas.forEach(s -> System.out.println(s.getTitulo() + " avaliação: " + s.getAvaliacao()));
+    }
+
 
 }

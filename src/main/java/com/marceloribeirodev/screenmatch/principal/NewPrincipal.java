@@ -38,6 +38,7 @@ public class NewPrincipal {
                     6 - Buscar Top 5 Séries
                     7 - Buscar séries por categoria
                     8 - Buscar séries por Total de Temporadas e Avaliação
+                    9 - Buscar episódios por trecho
                     0 - Sair                                 
                     """;
 
@@ -69,6 +70,9 @@ public class NewPrincipal {
                     break;
                 case 8:
                     buscarSeriesPorTotalDeTemporadaEAvaliacao();
+                    break;
+                case 9:
+                    buscarEpisodioPorTrecho();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -177,9 +181,18 @@ public class NewPrincipal {
         System.out.println("Digite agora a avaliação que deseja: ");
         Double valorAvaliacao = leitura.nextDouble();
         System.out.println("*** Séries filtradas ***");
-        List<Serie> seriesEncontradas = serieRepository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqualOrderByAvaliacaoDesc(qtdTotalTemporadas, valorAvaliacao);
+        List<Serie> seriesEncontradas = serieRepository.seriesPorTemporadaEAvaliacao(qtdTotalTemporadas, valorAvaliacao);
         seriesEncontradas.forEach(s ->
                 System.out.println(s.getTitulo() + "  - avaliação: " + s.getAvaliacao()));
+    }
+
+    private void buscarEpisodioPorTrecho(){
+        System.out.println("Digite o nome do episódio para busca: ");
+        String trechoEpisodio = leitura.nextLine();
+        List<Episodio> episodiosEncontrados = serieRepository.episodiosPorTrecho(trechoEpisodio);
+        episodiosEncontrados.forEach(e -> System.out.printf("Série: %s Temporada %s - Episódio %s - %s\n",
+                e.getSerie().getTitulo(), e.getTemporada(),
+                e.getNumeroEpisodio(), e.getTitulo()));
     }
 
 }
